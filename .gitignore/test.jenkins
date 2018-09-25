@@ -1,0 +1,24 @@
+pipeline {
+		agent any
+		stages{
+		    
+			stage('Git Check-out'){
+				steps{
+				git 'https://github.com/thockin/test.git'
+				sh"git rev-parse --short HEAD"
+				
+				}
+			}
+				stage('Commmit Code'){
+					steps{
+					   script {
+					   	GIT_COMMIT_HASH1 = sh (script: "git rev-parse --short HEAD", returnStdout: true)
+						GIT_COMMIT_HASH2 = sh (script: "echo ${env.GIT_COMMIT}|cut -c1-6", returnStdout: true)
+					}
+										
+					sh"echo ${GIT_COMMIT_HASH1}"
+					sh"echo ${GIT_COMMIT_HASH2}"
+					}
+				}
+			}
+}
