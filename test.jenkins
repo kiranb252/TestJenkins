@@ -1,0 +1,21 @@
+pipeline {
+		agent any
+		stages{
+		    
+			stage('Git Check-out'){
+				steps{
+				git 'https://github.com/kiranb252/Test2.git'
+							
+				}
+			}
+				stage('Commmit Code'){
+					steps{
+					   script {
+					   	GIT_SHORT_COMMIT_HASH = sh (script: "echo ${env.GIT_COMMIT}|cut -c1-6", returnStdout: true)
+					}
+										
+					sh"echo ${GIT_SHORT_COMMIT_HASH}"
+							}
+				}
+			}
+}
